@@ -56,7 +56,9 @@
   </div>
 </div>
 
-
+<div class="mb-3">
+  <input type="text" id="ted" class="form-control bg-color-black" placeholder="Search student...">
+</div>
 
 <table class="table table-dark" id="tableData">
   <thead>

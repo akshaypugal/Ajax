@@ -30,5 +30,9 @@ public class StudentService {
 	     public int updateStudent(student s ) throws SQLException {
 	    	   return sr.updateStudent(s);
 	     }
+	     
+	     public List<student>getBySearch(String s ) throws SQLException{
+	    	  return sr.getBySearch(s);
+	     }
 		 
 }

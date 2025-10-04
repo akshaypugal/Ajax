@@ -46,8 +46,10 @@ $(document).ready(function(){
 				
 
     $(document).on('click' , '.delete-btn' ,  function(){
+		
 		var id = $(this).val();   
-		   var obj = "id=" + id + "&action=delete";
+		   var obj = "id= " + id + " &action=delete";
+		   console.log("Singleton ");
 		   console.log(obj + " from ajax");
 		if(confirm("Do your want delete the row !!!")) {
 			
@@ -69,6 +71,53 @@ $(document).ready(function(){
 		}
        
 								
+	})
+	
+
+	
+	$(document).on('keyup' , "#ted" , function(){
+		  var keyword = $(this).val();
+		  console.log("Singleton ");
+		  
+		  console.log(keyword + " Inside the function");
+		
+		  var obj = keyword + "&action=search"
+		  console.log(obj);
+		  $.ajax({
+			 url : "studentController",
+			 type : "GET",
+			 data : obj, 
+			 dataType : "JSON",
+			 success : function(response){
+				var row = "";
+				alert("outside each");
+				$.each(response , function(index , item){
+									
+									row+="<tr>" ;
+									row+="<td>"+item.sid+"</td>";
+									row+="<td>"+item.sname+"</td>";
+									row+="<td>"+item.scourse+"</td>";
+									row+="<td>"+item.sfee+"</td>";
+									row += "<td>";
+								    row +='<button type="button" class="edit-btn" value="'+item.sid+'">' +
+									       '<i class="fa fa-edit text-primary"></i>' +
+									       '</button>';
+								    row += '<button type="button" class="delete-btn" value="'+item.sid+'">' +
+										          '<i class="fa fa-trash text-danger"></i>' +
+										          '</button>';
+								    row += "</td>";
+									row += "</tr>";
+									
+								})
+								alert("each end")
+								$("#tablebody").html(row);
+								
+								
+							},
+							error : function(){
+								  alter(error)
+							}
+						 })
 	})
 								
 				

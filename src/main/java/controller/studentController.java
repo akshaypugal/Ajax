@@ -9,6 +9,7 @@ import model.student;
 import service.StudentService;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
@@ -100,6 +101,10 @@ public class studentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                String action = request.getParameter("action");
+               String keyword = request.getParameter("keyword");
+             
+               System.out.println(action);
+               System.out.println(keyword);
                StudentService sr = new StudentService();
                       switch(action) {
                       case "list" :
@@ -107,6 +112,18 @@ public class studentController extends HttpServlet {
             		  Gson gs = new Gson();
             		  response.getWriter().write(gs.toJson(list));
             		  break ;
+                      case "search" : 
+                    	  List<student> list1;
+						try {
+							list1 = sr.getBySearch(keyword);
+							Gson gs1 = new Gson();
+	                    	  response.getWriter().write(gs1.toJson(list1));
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+                    	  
+                    	  break ; 
                       }
             		  
     }

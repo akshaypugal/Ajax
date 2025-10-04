@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.xdevapi.DbDoc;
+
 
 import model.student;
 import util.DBconnection;
@@ -29,7 +29,30 @@ public class StudentDao {
 	 						
 	}
 	
-	
+	public List<student> getBySearch(String s) throws SQLException{
+		  List<student> list = new ArrayList<>();
+		  String sql = "Select * from student where sname like ? or scourse like ? ";
+		  try(Connection conn = DBconnection.getConnection() ;
+			  PreparedStatement ps = conn.prepareStatement(sql)){
+			  ps.setString(1, "%"+s+"%");
+			  ps.setString(2, "%"+s+"%");
+			  ResultSet rs = ps.executeQuery() ; 
+			  while(rs.next()) {
+				   student data = new student(
+						   rs.getInt("sid") , 
+						   rs.getString("sname"),
+						   rs.getString("scourse"),
+						   rs.getDouble("sfee")
+						   );
+						   list.add(data) ;
+				  
+				   
+			  }
+			  return list ; 
+		  }
+			 
+		  
+	}
 	public student getStudentByID(int id ) {
 		student s = null ; 
 		    try {
