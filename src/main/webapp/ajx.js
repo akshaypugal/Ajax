@@ -49,7 +49,7 @@ $(document).ready(function(){
 		
 		var id = $(this).val();   
 		   var obj = "id= " + id + " &action=delete";
-		   console.log("Singleton ");
+		  
 		   console.log(obj + " from ajax");
 		if(confirm("Do your want delete the row !!!")) {
 			
@@ -77,11 +77,9 @@ $(document).ready(function(){
 	
 	$(document).on('keyup' , "#ted" , function(){
 		  var keyword = $(this).val();
-		  console.log("Singleton ");
 		  
-		  console.log(keyword + " Inside the function");
 		
-		  var obj = keyword + "&action=search"
+		  var obj = "keyword="+keyword+"&action=search"
 		  console.log(obj);
 		  $.ajax({
 			 url : "studentController",
@@ -90,7 +88,7 @@ $(document).ready(function(){
 			 dataType : "JSON",
 			 success : function(response){
 				var row = "";
-				alert("outside each");
+				
 				$.each(response , function(index , item){
 									
 									row+="<tr>" ;
@@ -109,7 +107,7 @@ $(document).ready(function(){
 									row += "</tr>";
 									
 								})
-								alert("each end")
+								
 								$("#tablebody").html(row);
 								
 								
